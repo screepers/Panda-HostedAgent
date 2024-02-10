@@ -1,0 +1,19 @@
+version: "3.9"
+
+x-logging: &default-logging
+  driver: "local"
+  options:
+    max-size: "20m"
+    max-file: "5"
+
+volumes:
+  postgres_data:
+
+services:
+  agent:
+    build: .
+    volumes:
+      - ./logs:/app/logs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging: *default-logging
